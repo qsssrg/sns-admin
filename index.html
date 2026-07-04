@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self'; connect-src https://api.github.com; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="light dark">
+<title>SNS運用 管理画面</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+<header id="topbar">
+  <h1>SNS運用 管理画面</h1>
+  <button id="btn-reload" class="icon-btn" title="再読み込み">↻</button>
+  <button id="btn-auth" class="icon-btn" title="接続設定">⚙</button>
+</header>
+
+<main id="view"><p class="muted">読み込み中…</p></main>
+
+<nav id="tabbar">
+  <button data-tab="dashboard" class="tab active">📊<span>ダッシュボード</span></button>
+  <button data-tab="approve" class="tab">✅<span>承認</span></button>
+  <button data-tab="activity" class="tab">📜<span>ログ</span></button>
+  <button data-tab="settings" class="tab">🛠<span>設定</span></button>
+</nav>
+
+<!-- 接続設定ダイアログ -->
+<dialog id="auth-dialog">
+  <form method="dialog" id="auth-form">
+    <h2>GitHub 接続設定</h2>
+    <p class="muted small">
+      Fine-grained PAT を使用してください(対象リポジトリのみ / Contents: Read&nbsp;and&nbsp;write / 有効期限 30〜90日)。
+      トークンはこの端末の localStorage にのみ保存されます。
+    </p>
+    <label>Personal Access Token
+      <input type="password" id="in-token" autocomplete="off" placeholder="github_pat_...">
+    </label>
+    <label>Owner
+      <input type="text" id="in-owner" value="qsssrg">
+    </label>
+    <label>Repository
+      <input type="text" id="in-repo" value="claudecode">
+    </label>
+    <label>Branch
+      <input type="text" id="in-branch" value="main">
+    </label>
+    <div class="row">
+      <button value="cancel" class="btn secondary">キャンセル</button>
+      <button value="save" class="btn primary" id="auth-save">保存して接続</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast"></div>
+
+<script src="vendor/yaml.min.js"></script>
+<script src="vendor/marked.min.js"></script>
+<script src="vendor/purify.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
